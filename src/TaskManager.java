@@ -3,16 +3,6 @@ import java.util.HashMap;
 
 public class TaskManager {
 
-    private final HashMap<Integer, Task> tasks = new HashMap<>();
-    private final HashMap<Integer, Epic> epics = new HashMap<>();
-    private final HashMap<Integer, Subtask> subtasks = new HashMap<>();
-
-    private int nextID = 1;
-
-    private int getNextID() {
-        return nextID++;
-    }
-
     public Task getTaskById(int id) {
         return tasks.get(id);
     }
@@ -41,6 +31,8 @@ public class TaskManager {
         return epic.getSubtasksList();
     }
 
+
+
     public void deleteTasks() {
         tasks.clear();
     }
@@ -63,8 +55,7 @@ public class TaskManager {
     }
 
     public void deleteEpicById(int id) {
-        ArrayList<Subtask> epicSubtasks = epics.get(id).getSubtasksList();
-        epics.remove(id);
+        ArrayList<Subtask> epicSubtasks = epics.remove(id).getSubtasksList();
         for (Subtask subtask : epicSubtasks) {
             subtasks.remove(subtask.getId());
         }
@@ -166,6 +157,12 @@ public class TaskManager {
         } else {
             epic.setStat(Stat.IN_PROGRESS);
         }
+    }
+
+    private int nextID = 1;
+
+    private int getNextID() {
+        return nextID++;
     }
 
 }
