@@ -7,6 +7,8 @@ public class TaskManager {
     private final HashMap<Integer, Epic> epics = new HashMap<>();
     private final HashMap<Integer, Subtask> subtasks = new HashMap<>();
 
+    private int nextID = 1;
+
 
 
     public Task getTaskById(int id) {
@@ -165,7 +167,7 @@ public class TaskManager {
         }
     }
 
-    private int nextID = 1;
+
 
     private int getNextID() {
         return nextID++;
