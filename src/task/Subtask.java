@@ -1,3 +1,7 @@
+package task;
+
+import status.Stat;
+
 public class Subtask extends Task {
 
     private final int epicID;
@@ -7,7 +11,10 @@ public class Subtask extends Task {
         this.epicID = epicID;
     }
 
-
+    public Subtask(int id, String name, String description, Stat stat, int epicID) {
+        super(id, name, description, stat);
+        this.epicID = epicID;
+    }
 
     public int getEpicID() {
         return epicID;
@@ -15,7 +22,7 @@ public class Subtask extends Task {
 
     @Override
     public String toString() {
-        return "Subtask{" +
+        return "task.Subtask{" +
                 "name='" + getName() + "\'" +
                 ", description=" + getDescription() + "\'" +
                 ", id=" + getId() +

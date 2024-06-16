@@ -4,40 +4,40 @@ Date:   Fri Jun 7 11:33:57 2024 +0700
 
     First development
 
-[1mdiff --git a/src/Epic.java b/src/Epic.java[m
+[1mdiff --git a/src/task.Epic.java b/src/task.Epic.java[m
 [1mnew file mode 100644[m
 [1mindex 0000000..3cd13c1[m
 [1m--- /dev/null[m
-[1m+++ b/src/Epic.java[m
+[1m+++ b/src/task.Epic.java[m
 [36m@@ -0,0 +1,36 @@[m
 [32m+[m[32mimport java.util.ArrayList;[m
 [32m+[m
-[32m+[m[32mpublic class Epic extends Task {[m
+[32m+[m[32mpublic class task.Epic extends task.Task {[m
 [32m+[m
-[32m+[m[32m    private ArrayList<Subtask> subtasksList = new ArrayList<>();[m
+[32m+[m[32m    private ArrayList<task.Subtask> subtasksList = new ArrayList<>();[m
 [32m+[m
-[32m+[m[32m    public Epic(String name, String description) {[m
+[32m+[m[32m    public task.Epic(String name, String description) {[m
 [32m+[m[32m        super(name, description);[m
 [32m+[m[32m    }[m
 [32m+[m
 [32m+[m
 [32m+[m
-[32m+[m[32m    public void addSubtask(Subtask subtask) {[m
+[32m+[m[32m    public void addSubtask(task.Subtask subtask) {[m
 [32m+[m[32m        subtasksList.add(subtask);[m
 [32m+[m[32m    }[m
 [32m+[m
 [32m+[m
-[32m+[m[32m    public ArrayList<Subtask> getSubtasksList() {[m
+[32m+[m[32m    public ArrayList<task.Subtask> getSubtasksList() {[m
 [32m+[m[32m        return subtasksList;[m
 [32m+[m[32m    }[m
 [32m+[m
-[32m+[m[32m    public void setSubtasksList(ArrayList<Subtask> subtasksList) {[m
+[32m+[m[32m    public void setSubtasksList(ArrayList<task.Subtask> subtasksList) {[m
 [32m+[m[32m        this.subtasksList = subtasksList;[m
 [32m+[m[32m    }[m
 [32m+[m
 [32m+[m[32m    @Override[m
 [32m+[m[32m    public String toString() {[m
-[32m+[m[32m        return "Epic{" +[m
+[32m+[m[32m        return "task.Epic{" +[m
 [32m+[m[32m                "name=" + getName() + "\'" +[m
 [32m+[m[32m                ", description=" + getDescription() + "\'" +[m
 [32m+[m[32m                ", id=" + getId() +[m
@@ -46,28 +46,28 @@ Date:   Fri Jun 7 11:33:57 2024 +0700
 [32m+[m[32m                '}';[m
 [32m+[m[32m    }[m
 [32m+[m[32m}[m
-[1mdiff --git a/src/Stat.java b/src/Stat.java[m
+[1mdiff --git a/src/status.Stat.java b/src/status.Stat.java[m
 [1mnew file mode 100644[m
 [1mindex 0000000..539cbcf[m
 [1m--- /dev/null[m
-[1m+++ b/src/Stat.java[m
+[1m+++ b/src/status.Stat.java[m
 [36m@@ -0,0 +1,5 @@[m
-[32m+[m[32mpublic enum Stat {[m
+[32m+[m[32mpublic enum status.Stat {[m
 [32m+[m[32m    NEW,[m
 [32m+[m[32m    IN_PROGRESS,[m
 [32m+[m[32m    DONE[m
 [32m+[m[32m}[m
-[1mdiff --git a/src/Subtask.java b/src/Subtask.java[m
+[1mdiff --git a/src/task.Subtask.java b/src/task.Subtask.java[m
 [1mnew file mode 100644[m
 [1mindex 0000000..48ef7cf[m
 [1m--- /dev/null[m
-[1m+++ b/src/Subtask.java[m
+[1m+++ b/src/task.Subtask.java[m
 [36m@@ -0,0 +1,26 @@[m
-[32m+[m[32mpublic class Subtask extends Task {[m
+[32m+[m[32mpublic class task.Subtask extends task.Task {[m
 [32m+[m
 [32m+[m[32m    private final int epicID;[m
 [32m+[m
-[32m+[m[32m    public Subtask(String name, String description, int epicID) {[m
+[32m+[m[32m    public task.Subtask(String name, String description, int epicID) {[m
 [32m+[m[32m        super(name, description);[m
 [32m+[m[32m        this.epicID = epicID;[m
 [32m+[m[32m    }[m
@@ -80,7 +80,7 @@ Date:   Fri Jun 7 11:33:57 2024 +0700
 [32m+[m
 [32m+[m[32m    @Override[m
 [32m+[m[32m    public String toString() {[m
-[32m+[m[32m        return "Subtask{" +[m
+[32m+[m[32m        return "task.Subtask{" +[m
 [32m+[m[32m                "name='" + getName() + "\'" +[m
 [32m+[m[32m                ", description=" + getDescription() + "\'" +[m
 [32m+[m[32m                ", id=" + getId() +[m
@@ -89,20 +89,20 @@ Date:   Fri Jun 7 11:33:57 2024 +0700
 [32m+[m[32m                "}";[m
 [32m+[m[32m    }[m
 [32m+[m[32m}[m
-[1mdiff --git a/src/TaskManager.java b/src/TaskManager.java[m
+[1mdiff --git a/src/managers.TaskManager.java b/src/managers.TaskManager.java[m
 [1mnew file mode 100644[m
 [1mindex 0000000..1267d21[m
 [1m--- /dev/null[m
-[1m+++ b/src/TaskManager.java[m
+[1m+++ b/src/managers.TaskManager.java[m
 [36m@@ -0,0 +1,89 @@[m
 [32m+[m[32mimport java.util.ArrayList;[m
 [32m+[m[32mimport java.util.HashMap;[m
 [32m+[m
-[32m+[m[32mpublic class TaskManager {[m
+[32m+[m[32mpublic class managers.TaskManager {[m
 [32m+[m
-[32m+[m[32m    private final HashMap<Integer, Task> tasks = new HashMap<>();[m
-[32m+[m[32m    private final HashMap<Integer, Epic> epics = new HashMap<>();[m
-[32m+[m[32m    private final HashMap<Integer, Subtask> subtasks = new HashMap<>();[m
+[32m+[m[32m    private final HashMap<Integer, task.Task> tasks = new HashMap<>();[m
+[32m+[m[32m    private final HashMap<Integer, task.Epic> epics = new HashMap<>();[m
+[32m+[m[32m    private final HashMap<Integer, task.Subtask> subtasks = new HashMap<>();[m
 [32m+[m
 [32m+[m[32m    private int nextID = 1;[m
 [32m+[m
@@ -110,28 +110,28 @@ Date:   Fri Jun 7 11:33:57 2024 +0700
 [32m+[m[32m        return nextID++;[m
 [32m+[m[32m    }[m
 [32m+[m
-[32m+[m[32m    public Task addTask(Task task) {[m
+[32m+[m[32m    public task.Task addTask(task.Task task) {[m
 [32m+[m[32m        task.setId(getNextID());[m
 [32m+[m[32m        tasks.put(task.getId(), task);[m
 [32m+[m[32m        return task;[m
 [32m+[m[32m    }[m
 [32m+[m
-[32m+[m[32m    public Epic addEpic(Epic epic) {[m
+[32m+[m[32m    public task.Epic addEpic(task.Epic epic) {[m
 [32m+[m[32m        epic.setId(getNextID());[m
 [32m+[m[32m        epics.put(epic.getId(), epic);[m
 [32m+[m[32m        return epic;[m
 [32m+[m[32m    }[m
 [32m+[m
-[32m+[m[32m    public Subtask addSubtask(Subtask subtask) {[m
+[32m+[m[32m    public task.Subtask addSubtask(task.Subtask subtask) {[m
 [32m+[m[32m        subtask.setId(getNextID());[m
-[32m+[m[32m        Epic epic = epics.get(subtask.getEpicID());[m
+[32m+[m[32m        task.Epic epic = epics.get(subtask.getEpicID());[m
 [32m+[m[32m        epic.addSubtask(subtask);[m
 [32m+[m[32m        subtasks.put(subtask.getId(), subtask);[m
 [32m+[m[32m        updateEpicStat(epic);[m
 [32m+[m[32m        return subtask;[m
 [32m+[m[32m    }[m
 [32m+[m
-[32m+[m[32m    public Task updateTask(Task task) {[m
+[32m+[m[32m    public task.Task updateTask(task.Task task) {[m
 [32m+[m[32m        Integer taskID = task.getId();[m
 [32m+[m[32m        if (task == null || tasks.containsKey(taskID)) {[m
 [32m+[m[32m            return null;[m
@@ -142,16 +142,16 @@ Date:   Fri Jun 7 11:33:57 2024 +0700
 [32m+[m
 [32m+[m
 [32m+[m
-[32m+[m[32m    public Subtask updateSubtask(Subtask subtask) {[m
+[32m+[m[32m    public task.Subtask updateSubtask(task.Subtask subtask) {[m
 [32m+[m[32m        Integer sibtaskID = subtask.getId();[m
 [32m+[m[32m        if (sibtaskID == null || !subtasks.containsKey(sibtaskID)) {[m
 [32m+[m[32m            return null;[m
 [32m+[m[32m        }[m
 [32m+[m[32m        int epicID = subtask.getEpicID();[m
-[32m+[m[32m        Subtask oldenSubtask = subtasks.get(sibtaskID);[m
+[32m+[m[32m        task.Subtask oldenSubtask = subtasks.get(sibtaskID);[m
 [32m+[m[32m        subtasks.replace(sibtaskID, subtask);[m
-[32m+[m[32m        Epic epic = epics.get(epicID);[m
-[32m+[m[32m        ArrayList<Subtask> subtaskList = epic.getSubtasksList();[m
+[32m+[m[32m        task.Epic epic = epics.get(epicID);[m
+[32m+[m[32m        ArrayList<task.Subtask> subtaskList = epic.getSubtasksList();[m
 [32m+[m[32m        subtaskList.remove(oldenSubtask);[m
 [32m+[m[32m        subtaskList.add(subtask);[m
 [32m+[m[32m        epic.setSubtasksList(subtaskList);[m
@@ -161,25 +161,25 @@ Date:   Fri Jun 7 11:33:57 2024 +0700
 [32m+[m
 [32m+[m
 [32m+[m
-[32m+[m[32m    private void updateEpicStat(Epic epic) {[m
+[32m+[m[32m    private void updateEpicStat(task.Epic epic) {[m
 [32m+[m[32m        int allIsDoneCount = 0;[m
 [32m+[m[32m        int allIsNewCount = 0;[m
-[32m+[m[32m        ArrayList<Subtask> list = epic.getSubtasksList();[m
-[32m+[m[32m        for (Subtask subtask: list) {[m
-[32m+[m[32m            if (subtask.getStat() == Stat.DONE) {[m
+[32m+[m[32m        ArrayList<task.Subtask> list = epic.getSubtasksList();[m
+[32m+[m[32m        for (task.Subtask subtask: list) {[m
+[32m+[m[32m            if (subtask.getStat() == status.Stat.DONE) {[m
 [32m+[m[32m                allIsDoneCount++;[m
 [32m+[m[32m            }[m
-[32m+[m[32m            if (subtask.getStat() == Stat.NEW) {[m
+[32m+[m[32m            if (subtask.getStat() == status.Stat.NEW) {[m
 [32m+[m[32m                allIsNewCount++;[m
 [32m+[m[32m            }[m
 [32m+[m
 [32m+[m[32m        }[m
 [32m+[m[32m        if (allIsDoneCount == list.size()) {[m
-[32m+[m[32m            epic.setStat(Stat.DONE);[m
+[32m+[m[32m            epic.setStat(status.Stat.DONE);[m
 [32m+[m[32m        } else if (allIsNewCount == list.size()) {[m
-[32m+[m[32m            epic.setStat(Stat.NEW);[m
+[32m+[m[32m            epic.setStat(status.Stat.NEW);[m
 [32m+[m[32m        } else {[m
-[32m+[m[32m            epic.setStat(Stat.IN_PROGRESS);[m
+[32m+[m[32m            epic.setStat(status.Stat.IN_PROGRESS);[m
 [32m+[m[32m        }[m
 [32m+[m[32m    }[m
 [32m+[m

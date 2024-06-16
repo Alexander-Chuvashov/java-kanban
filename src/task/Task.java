@@ -1,3 +1,7 @@
+package task;
+
+import status.Stat;
+
 import java.util.Objects;
 
 public class Task {
@@ -28,10 +32,6 @@ public class Task {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public int getId() {
         return id;
     }
@@ -53,7 +53,7 @@ public class Task {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Task task = (Task) o;
-        return id == task.id && Objects.equals(name, task.name) && Objects.equals(description, task.description) && stat == task.stat;
+        return id == task.id;
     }
 
     @Override
@@ -71,7 +71,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
+        return "task.Task{" +
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", id=" + id +
