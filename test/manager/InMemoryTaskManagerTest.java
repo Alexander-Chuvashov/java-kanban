@@ -22,6 +22,7 @@ public class InMemoryTaskManagerTest {
         taskManager = Managers.getDefault();
     }
 
+    //проверка на добавляет ли задачу и ищет по id
     @Test
     void addNewTest() {
         final Task task = taskManager.addTask(new Task("Test", "Test addNewTask description"));
@@ -34,6 +35,7 @@ public class InMemoryTaskManagerTest {
         assertEquals(task, tasks.getFirst(), "The tasks do not match");
     }
 
+    //проверка на добавляет ли эпик и подзадачу и ищет по id
     @Test
     void addNewEpicAndSubtasks() {
         final Epic familyHolidays = taskManager.addEpic(new Epic(1, "Организовать семейный праздник",
@@ -67,6 +69,7 @@ public class InMemoryTaskManagerTest {
 
     }
 
+    // Обновить задачу, затем вернуть задачу с тем же id
     @Test
     public void updateTaskShouldReturnTaskWithTheSameId() {
         final Task expected = new Task("имя", "описание");
@@ -76,6 +79,7 @@ public class InMemoryTaskManagerTest {
         assertEquals(expected, actual, "Вернулась задача с другим id");
     }
 
+    // Обновите эпик, затем вернуть эпик с тем же id
     @Test
     public void updateEpicShouldReturnEpicWithTheSameId() {
         final Epic expected = new Epic(1, "имя", "описание", Stat.IN_PROGRESS);
@@ -84,6 +88,8 @@ public class InMemoryTaskManagerTest {
         final Epic actual = taskManager.updateEpic(updatedEpic);
         assertEquals(expected, actual, "Вернулся эпик с другим id");
     }
+
+    //Обновляет подзадачу, затем возвращает подзадачу с тем же id
     @Test
     public void updateSubtaskShouldReturnSubtaskWithTheSameId() {
         final Epic epic = new Epic("имя", "описание");
@@ -96,6 +102,7 @@ public class InMemoryTaskManagerTest {
         assertEquals(expected, actual, "Вернулась подзадача с другим id");
     }
 
+    //Удалить список задач, которые следует вернуть в пустое место
     @Test
     public void deleteTasksShouldReturnEmptyList() {
         taskManager.addTask(new Task("Задача1", "Подзадача1"));
@@ -105,6 +112,7 @@ public class InMemoryTaskManagerTest {
         assertTrue(tasks.isEmpty(), "Список должен быть пуст!");
     }
 
+    //Удалить эпик и вернуть пустой список
     @Test
     public void deleteEpicsShouldReturnEmptyList() {
         taskManager.addEpic(new Epic(1, "Задача3","Подзадача3", Stat.IN_PROGRESS));
@@ -113,6 +121,7 @@ public class InMemoryTaskManagerTest {
         assertTrue(epics.isEmpty(), "Список Эпиков должен быть пуст");
     }
 
+    //Удалить список подзадач, которые следует вернуть
     @Test
     public void deleteSubtasksShouldReturnEmptyList() {
         Epic familyHolidays = new Epic(1, "Организовать праздник", "сделать за три недели", Stat.IN_PROGRESS);
@@ -125,6 +134,7 @@ public class InMemoryTaskManagerTest {
         assertTrue(subtasks.isEmpty(), "список должен быть пуст");
     }
 
+    //удаление Задачи По id
     @Test
     public void deleteTaskByIdShouldReturnNullfKeyIsMissing() {
         taskManager.addTask(new Task(1, "Задача1", "Подзадача1", Stat.NEW));
@@ -132,6 +142,7 @@ public class InMemoryTaskManagerTest {
         assertNull(taskManager.deleteTaskById(3));
     }
 
+    //удаление эпик По Id
     @Test
     public void deleteEpicByIdShouldReturnNullfkeyIsMissing() {
         taskManager.addEpic(new Epic(1, "Задача3", "Подзадача3", Stat.IN_PROGRESS));
@@ -139,15 +150,17 @@ public class InMemoryTaskManagerTest {
         assertNull(taskManager.deleteTaskById(1));
     }
 
+    //удаление подзадачи по id
     @Test
     public void deleteSubtaskByIdShouldReturnNullfkeyIsMissing() {
-        Epic familyHolidays = new Epic("", "");
+        Epic familyHolidays = new Epic("Задача", "Подзадача");
         taskManager.addEpic(familyHolidays);
-        taskManager.addSubtask(new Subtask("", "", familyHolidays.getId()));
-        taskManager.addSubtask(new Subtask("", "", familyHolidays.getId()));
+        taskManager.addSubtask(new Subtask("Задача1", "Подзадача1", familyHolidays.getId()));
+        taskManager.addSubtask(new Subtask("Задача2", "Подзадача2", familyHolidays.getId()));
         assertNull(taskManager.deleteSubtaskById());
     }
 
+    //Созданная и добавленная задачи должны быть неизменяемыми
     @Test
     void TaskCreatedAndTaskAddedShouldHaveSameVariables() {
         Task expected = new Task(1, "", "", Stat.DONE);

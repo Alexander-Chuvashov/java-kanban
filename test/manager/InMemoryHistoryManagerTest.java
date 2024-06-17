@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class InMemoryHistoryManagerTest {
+
     private static TaskManager taskManager;
 
     @BeforeEach
@@ -22,10 +23,11 @@ public class InMemoryHistoryManagerTest {
         taskManager = Managers.getDefault();
     }
 
+    //Получить доступ к истории и вернуться к списку из 10 задач
     @Test
     public void getHistoryShouldReturnListOf10Tasks() {
         for (int i = 0; i < 20; i++) {
-            taskManager.addTask(new Task("", ""));
+            taskManager.addTask(new Task("Имя", "Описание"));
         }
 
         List<Task> tasks = taskManager.getTasks();
@@ -34,21 +36,23 @@ public class InMemoryHistoryManagerTest {
         }
 
         List<Task> list = taskManager.getHistory();
-        assertEquals(10, list.size(), "");
+        assertEquals(10, list.size(), "В истории неверное количество элементов");
     }
 
+    //Должен вернуть Старый эпик после обновления
     @Test
     public void getHistoryShouldReturnOldEpicAfterUpdate() {
-        Epic familyHolidays = new Epic("","");
+        Epic familyHolidays = new Epic("Организовать семейный праздник","Составить список участников");
         taskManager.addEpic(familyHolidays);
         taskManager.getEpicById(familyHolidays.getId());
-        taskManager.updateEpic(new Epic(familyHolidays.getId(), "", "", Stat.IN_PROGRESS));
+        taskManager.updateEpic(new Epic(familyHolidays.getId(), "Новое имя", "Новое описание", Stat.IN_PROGRESS));
         List<Task> epics = taskManager.getHistory();
         Epic oldEpic = (Epic) epics.getFirst();
-        assertEquals(familyHolidays.getName(), oldEpic.getName(), "");
-        assertEquals(familyHolidays.getDescription(), oldEpic.getDescription(), "");
+        assertEquals(familyHolidays.getName(), oldEpic.getName(), "В истории нет старой версии");
+        assertEquals(familyHolidays.getDescription(), oldEpic.getDescription(), "В истории нет старой версии");
     }
 
+    //вернуть эту подзадачу после обновления
     @Test
     public void getHistoryShouldReturnOldSubtaskAfterUpdate() {
         Epic familyHolidays = new Epic("Организовать семейный праздник", "Составить список участников");
