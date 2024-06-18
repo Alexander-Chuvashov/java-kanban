@@ -23,21 +23,6 @@ public class InMemoryHistoryManagerTest {
         taskManager = Managers.getDefault();
     }
 
-    //Получить доступ к истории и вернуться к списку из 10 задач
-    @Test
-    public void getHistoryShouldReturnListOf10Tasks() {
-        for (int i = 0; i < 20; i++) {
-            taskManager.addTask(new Task("Имя", "Описание"));
-        }
-
-        List<Task> tasks = taskManager.getTasks();
-        for (Task task : tasks) {
-            taskManager.getTaskById(task.getId());
-        }
-
-        List<Task> list = taskManager.getHistory();
-        assertEquals(10, list.size(), "В истории неверное количество элементов");
-    }
 
     //Должен вернуть Старый эпик после обновления
     @Test

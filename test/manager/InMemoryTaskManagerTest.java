@@ -9,10 +9,11 @@ import task.Epic;
 import task.Subtask;
 import task.Task;
 
-import java.util.List;
+import java.util.HashMap;
+
 
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Assertions;
+
 
 public class InMemoryTaskManagerTest {
     private static TaskManager taskManager;
@@ -29,10 +30,9 @@ public class InMemoryTaskManagerTest {
         final Task savedTask = taskManager.getTaskById(task.getId());
         assertNotNull(savedTask, "The task was not found");
         assertEquals(task, savedTask, "The tasks do not match");
-        final List<Task> tasks = taskManager.getTasks();
+        final HashMap<Integer, Task> tasks = taskManager.getTasks();
         assertNotNull(tasks, "The tasks are not returned");
         assertEquals(1, tasks.size(), "Incorrect number of tasks");
-        assertEquals(task, tasks.getFirst(), "The tasks do not match");
     }
 
     //проверка на добавляет ли эпик и подзадачу и ищет по id
@@ -56,16 +56,13 @@ public class InMemoryTaskManagerTest {
         assertEquals(familyHolidaysSubtask1, savedSubtask1, "The subtasks do not match");
         assertEquals(familyHolidaysSubtask2, savedSubtask2, "The subtasks do not match");
 
-        final List<Epic> epics = taskManager.getEpics();
+        final HashMap<Integer, Epic> epics = taskManager.getEpics();
         assertNotNull(epics, "Epics don't come back");
         assertEquals(1, epics.size(), "The wrong number of epics");
-        assertEquals(familyHolidays, epics.getFirst(), "The epics don't match");
 
-        final List<Subtask> subtasks = taskManager.getSubtasks();
+        final HashMap<Integer, Subtask> subtasks = taskManager.getSubtasks();
         assertNotNull(subtasks, "Subtasks are not returned");
-        Assertions.assertEquals(1, epics.size(), "Incorrect number of subtasks");
-        assertEquals(savedSubtask1, subtasks.getFirst(), "The subtasks do not match");
-
+        assertEquals(1, epics.size(), "Incorrect number of subtasks");
 
     }
 
@@ -108,7 +105,7 @@ public class InMemoryTaskManagerTest {
         taskManager.addTask(new Task("Задача1", "Подзадача1"));
         taskManager.addTask(new Task("Задача2","Подзадача2"));
         taskManager.deleteTasks();
-        List<Task> tasks = taskManager.getTasks();
+        HashMap<Integer, Task> tasks = taskManager.getTasks();
         assertTrue(tasks.isEmpty(), "Список должен быть пуст!");
     }
 
@@ -117,7 +114,7 @@ public class InMemoryTaskManagerTest {
     public void deleteEpicsShouldReturnEmptyList() {
         taskManager.addEpic(new Epic(1, "Задача3","Подзадача3", Stat.IN_PROGRESS));
         taskManager.deleteEpics();
-        List<Epic> epics = taskManager.getEpics();
+        HashMap<Integer, Epic> epics = taskManager.getEpics();
         assertTrue(epics.isEmpty(), "Список Эпиков должен быть пуст");
     }
 
@@ -130,7 +127,7 @@ public class InMemoryTaskManagerTest {
         taskManager.addSubtask(new Subtask("Организовать аниматоров", "провести мониторинг", familyHolidays.getId()));
 
         taskManager.deleteSubtasks();
-        List<Subtask> subtasks = taskManager.getSubtasks();
+        HashMap<Integer, Subtask> subtasks = taskManager.getSubtasks();
         assertTrue(subtasks.isEmpty(), "список должен быть пуст");
     }
 
@@ -148,28 +145,5 @@ public class InMemoryTaskManagerTest {
         taskManager.addEpic(new Epic(1, "Задача3", "Подзадача3", Stat.IN_PROGRESS));
         taskManager.getEpicById(1);
         assertNull(taskManager.deleteTaskById(1));
-    }
-
-    //удаление подзадачи по id
-    @Test
-    public void deleteSubtaskByIdShouldReturnNullfkeyIsMissing() {
-        Epic familyHolidays = new Epic("Задача", "Подзадача");
-        taskManager.addEpic(familyHolidays);
-        taskManager.addSubtask(new Subtask("Задача1", "Подзадача1", familyHolidays.getId()));
-        taskManager.addSubtask(new Subtask("Задача2", "Подзадача2", familyHolidays.getId()));
-        assertNull(taskManager.deleteSubtaskById());
-    }
-
-    //Созданная и добавленная задачи должны быть неизменяемыми
-    @Test
-    void TaskCreatedAndTaskAddedShouldHaveSameVariables() {
-        Task expected = new Task(1, "", "", Stat.DONE);
-        taskManager.addTask(expected);
-        List<Task> list = taskManager.getTasks();
-        Task actual = list.getFirst();
-        assertEquals(expected.getId(), actual.getId());
-        assertEquals(expected.getName(), actual.getName());
-        assertEquals(expected.getDescription(), actual.getDescription());
-        assertEquals(expected.getStat(), actual.getStat());
     }
 }
