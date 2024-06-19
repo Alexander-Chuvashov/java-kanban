@@ -3,10 +3,11 @@ package task;
 import status.Stat;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Epic extends Task {
 
-    private ArrayList<Subtask> subtasksList = new ArrayList<>();
+    private List<Subtask> subtasksList = new ArrayList<>();
 
     public Epic(String name, String description) {
         super(name, description);
@@ -25,11 +26,11 @@ public class Epic extends Task {
     }
 
 
-    public ArrayList<Subtask> getSubtasksList() {
+    public List<Subtask> getSubtasksList() {
         return subtasksList;
     }
 
-    public void setSubtasksList(ArrayList<Subtask> subtasksList) {
+    public void setSubtasksList(List<Subtask> subtasksList) {
         this.subtasksList = subtasksList;
     }
 

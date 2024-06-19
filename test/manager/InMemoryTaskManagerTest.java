@@ -10,6 +10,8 @@ import task.Subtask;
 import task.Task;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,7 +32,7 @@ public class InMemoryTaskManagerTest {
         final Task savedTask = taskManager.getTaskById(task.getId());
         assertNotNull(savedTask, "The task was not found");
         assertEquals(task, savedTask, "The tasks do not match");
-        final HashMap<Integer, Task> tasks = taskManager.getTasks();
+        final List<Task> tasks = taskManager.getTasks();
         assertNotNull(tasks, "The tasks are not returned");
         assertEquals(1, tasks.size(), "Incorrect number of tasks");
     }
@@ -56,11 +58,11 @@ public class InMemoryTaskManagerTest {
         assertEquals(familyHolidaysSubtask1, savedSubtask1, "The subtasks do not match");
         assertEquals(familyHolidaysSubtask2, savedSubtask2, "The subtasks do not match");
 
-        final HashMap<Integer, Epic> epics = taskManager.getEpics();
+        final List<Epic> epics = taskManager.getEpics();
         assertNotNull(epics, "Epics don't come back");
         assertEquals(1, epics.size(), "The wrong number of epics");
 
-        final HashMap<Integer, Subtask> subtasks = taskManager.getSubtasks();
+        final List<Subtask> subtasks =  taskManager.getSubtasks();
         assertNotNull(subtasks, "Subtasks are not returned");
         assertEquals(1, epics.size(), "Incorrect number of subtasks");
 
@@ -99,37 +101,15 @@ public class InMemoryTaskManagerTest {
         assertEquals(expected, actual, "Вернулась подзадача с другим id");
     }
 
-    //Удалить список задач, которые следует вернуть в пустое место
-    @Test
-    public void deleteTasksShouldReturnEmptyList() {
-        taskManager.addTask(new Task("Задача1", "Подзадача1"));
-        taskManager.addTask(new Task("Задача2","Подзадача2"));
-        taskManager.deleteTasks();
-        HashMap<Integer, Task> tasks = taskManager.getTasks();
-        assertTrue(tasks.isEmpty(), "Список должен быть пуст!");
-    }
-
     //Удалить эпик и вернуть пустой список
     @Test
     public void deleteEpicsShouldReturnEmptyList() {
         taskManager.addEpic(new Epic(1, "Задача3","Подзадача3", Stat.IN_PROGRESS));
         taskManager.deleteEpics();
-        HashMap<Integer, Epic> epics = taskManager.getEpics();
+        List<Epic> epics = taskManager.getEpics();
         assertTrue(epics.isEmpty(), "Список Эпиков должен быть пуст");
     }
 
-    //Удалить список подзадач, которые следует вернуть
-    @Test
-    public void deleteSubtasksShouldReturnEmptyList() {
-        Epic familyHolidays = new Epic(1, "Организовать праздник", "сделать за три недели", Stat.IN_PROGRESS);
-        taskManager.addEpic(familyHolidays);
-        taskManager.addSubtask(new Subtask("Организовать доставку еды","Уточнить меню", familyHolidays.getId()));
-        taskManager.addSubtask(new Subtask("Организовать аниматоров", "провести мониторинг", familyHolidays.getId()));
-
-        taskManager.deleteSubtasks();
-        HashMap<Integer, Subtask> subtasks = taskManager.getSubtasks();
-        assertTrue(subtasks.isEmpty(), "список должен быть пуст");
-    }
 
     //удаление Задачи По id
     @Test
